@@ -37,7 +37,7 @@ An autoencoder consists of 3 components:
 
 <img src ="ed1.png" width=500>
 
-Above the image input gets encoded into a latent representation which is identified as "Code" (as the latest representation becomes just a code after encoding process). The low dimensional latent representation can then be used to reproduce an __approximation__ of the input.  
+Above the image input gets encoded into a latent representation which is identified as "Code" (as the latent representation becomes just a code after encoding process). The low dimensional latent representation can then be used to reproduce an __approximation__ of the input.  
 
 The autoencoder as a whole can thus be described by the function:
 $$g(f(x)) = r$$ 
@@ -93,26 +93,26 @@ The ideal autoencoder model balances the following:
 - Sensitive enough to accurately build a reconstruction from inputs.
 - Insensitive enough not to directly memorize/overfit to the inputs. 
 
-This trade-off forces the model to maintain __only the necessary variations__ in the data required to reconstruct the input without holding on to redundancies in data. For this, we use a loss function where one term encourages our model to be sensitive to the inputs (ie. __reconstruction loss__ $L(x,x̂)$ and a second term discourages memorization/overfitting (ie. an added regularizer).
+This trade-off forces the model to maintain __only the necessary variations__ in the data required to reconstruct the input without holding on to redundancies in data. For this, we use a loss function where one term encourages our model to be sensitive to the inputs (ie. __reconstruction loss__ $L(x,z)$ and a second term discourages memorization/overfitting (ie. an added regularizer). For a reconstruction $z$ and the original input $x$: 
 
-$$L(x,x̂ )+ regularizer$$
+$$Loss(x,z) + regularizer$$
 
-We typically add a scaling parameter in front of the regularization term so that we can adjust the trade-off between the two objectives.
+We typically add a scaling parameter in front of the regularization term so that we can adjust the trade-off between the two objectives. We'll look into regularization later in the section.
 
 In the commonly used undercomplete AE, penalizing the network according to the reconstruction error allows the model can learn the most important attributes of the input data and how to best reconstruct the original input from an "encoded" state. Ideally, this encoding will learn and describe latent attributes of the input data.
 
 
-The loss functions typically used in these architectures is mean squared error: 
+The loss function $L$ typically used in these architectures is mean squared error: 
 
-$$J(x,z)=‖x−z‖^2$$ 
+$$L(x,z)=‖x−z‖^2$$ 
 
-This measures how close the reconstructed input $z$ is to the original input $x$. When the data resembles a vector binary values or a vector of probabilities (which are both values in the range of [0,1]), we can also use the cross-entropy of reconstruction loss function, which calculates how many “bits” of information are preserved in the reconstruction compared to the original. This loss function is:
+This measures how close the reconstructed input $z$ is to the original input $x$. When the data resembles a vector binary values or a vector of probabilities (which are both values in the range of [0,1]), we can also use the cross-entropy of reconstruction loss function, which calculates how many bits of information are preserved in the reconstruction compared to the original. The cross entropy loss function is calculated as:
 
-$$J(x,z)=−\sum_k^d[x_k log(z_k)+(1−x_k)log(1−z_k)]$$
+$$L(x,z)=−\sum_k^d[x_k log(z_k)+(1−x_k)log(1−z_k)]$$
 
-> Autoencoders are trained the same way as ANNs via backpropagation.
+> __Note: Autoencoders are trained the same way as ANNs, via backpropagation.__
 
-### AE Hyper Parameters
+### AE Hyper-parameters
 
 There are 4 hyperparameters that we need to set before training an autoencoder:
 
@@ -138,6 +138,11 @@ Autoencoders have a few important properties:
 - **Lossy**: The output of the autoencoder will not be exactly the same as the input, it will be a close but degraded representation.
 
 -  **Unsupervised**: To train an autoencoder we don’t need to do anything fancy, just throw the raw input data at it. Autoencoders are considered an unsupervised learning technique since they don’t need explicit labels to train on. But to be more precise they are __self-supervised__ because they generate their own labels from the training data.
+
+- __Non-linear transformations__: An AE can learn non linear relationships with a non-linear activation function and multiple layers.
+
+
+It is more efficient to learn several layers with an autoencoder rather than learn one huge transformation with PCA. An autoencoder provides a representation of each layer as the output. It can make use of pre-trained layers from another model to apply transfer learning to enhance the encoder/decoder.
 
 ABove provides you with a brief introduction to autoencoders and how they function. Next, we shall try to implement a simple autoencoder built from ANNs that we have already seen. 
 
