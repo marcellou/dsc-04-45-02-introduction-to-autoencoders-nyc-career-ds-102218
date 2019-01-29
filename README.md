@@ -1,5 +1,5 @@
 
-# Introduction To Auto-Encoders
+# Introduction to Autoencoders
 
 ## Introduction
 
@@ -8,6 +8,8 @@ Earlier, we looked at PCA and SVD for the the task of data compression using dim
 In this lesson we will look at autoencoders and with some key application areas. Autoencoders are unsupervised neural networks that use machine learning to do data compression for us. The aim of an autoencoder is to learn a compressed, distributed representation for the given data.
 
 ## Objectives
+
+You will be able to:
 - Understand and describe the role of auto encoders for data compression
 - Explain how AEs use the Latent Space model to create a latent representation of data
 - Distinguish between undercomplete and overcomplete AEs and their applications
@@ -18,7 +20,7 @@ In this lesson we will look at autoencoders and with some key application areas.
 
 Autoencoders use unsupervised learning technique  that uses feedforward neural networks. In autoencoders, __the input is the same as the output__. They compress the input into a lower-dimensional code called the summary or __Representation__. Autoencoders then reconstruct the output from this representation, instead of the input. This “compression” representation of the input is called the __Latent-space Representation__, and this task is described as __Representation Learning__. 
 
-__Specifically, AEs are neural network architecture such that impose a "Bottleneck" in the network which forces a compressed knowledge representation of the original input.__
+__Specifically, autoencoders (or AEs) are neural network architecture such that impose a "Bottleneck" in the network which forces a compressed knowledge representation of the original input.__
 
 In the following image, we san see the original inputs $x_1 .. x_6$ are first compressed in a bottleneck which is simply a layer with much less number of neurons. The Latent speace representation $a_1 .. a_3$ is learnt from the input data and is used to reconsutruct the outputs $\hat{x_1} .. \hat{x_6}$.  
 
